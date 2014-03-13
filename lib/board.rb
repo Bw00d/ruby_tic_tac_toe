@@ -10,6 +10,10 @@ class Board
     end
   end
 
+  def find(x_coordinate, y_coordinate)
+    self.row(y_coordinate)[x_coordinate]
+  end
+
   def row(number)
     selected_row = []
     @spaces.each do |space|
@@ -72,58 +76,32 @@ class Board
     end
   end
 
-=begin
-  def print_board
-    row(0).each do |space|
-      if space.marked_by == nil
-        print '$ '
-      elsif space.marked_by == 'X'
-        print 'X '
-      else
-        print 'O '
-      end
-    end
-    puts
-    row(1).each do |space|
-      if space.marked_by == nil
-        print '$ '
-      elsif space.marked_by == 'X'
-        print 'X '
-      else
-        print 'O '
-      end
-    end
-    puts
-    row(2).each do |space|
-      if space.marked_by == nil
-        print '$ '
-      elsif space.marked_by.value == 'X'
-        print 'X '
-      elsif space.marked_by.value == 'O'
-        print 'O '
-      else
-        print '?'
-      end
-    end
-  end
-=end
-
   def print_board
     (0..2).each do |i|
       self.row(i).each do |space|
         marked = space.marked_by
         if marked.nil?
-          print '#'
+          print '# '
         elsif marked.value == 'X'
-          print 'X'
+          print 'X '
         elsif marked.value == 'O'
-          print 'O'
+          print 'O '
         else
-          print '?'
+          print '? '
         end
       end
       puts
     end
+  end
+
+  def full?
+    @spaces.each do |space|
+      if space.marked_by.nil?
+        return false
+      end
+    end
+
+    true
   end
 
 end
